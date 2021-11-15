@@ -1,0 +1,173 @@
+@startuml
+
+class ToDoLists implements Serializable {
+
+    private ObservableList<ToDoList>  lists = FXCollections.observableArrayList();
+
+    public ToDoLists()
+
+    public ToDoLists(ObservableList<ToDoList> lists)
+
+    public ObservableList<ToDoList> getLists()
+
+    public void setLists(ObservableList<ToDoList> lists)
+}
+
+class ToDoList extends ManageListController implements Serializable {
+
+    private String title = "MyList";
+    private ObservableList<ToDoListItem> items = FXCollections.observableArrayList();
+
+    public ToDoList()
+
+    public ToDoList(String title, ObservableList<ToDoListItem> items)
+
+    public String getTitle()
+
+    public void setTitle(String title)
+
+    public ObservableList<ToDoListItem> getItems()
+
+    public void setItems(ObservableList<ToDoListItem> items)
+}
+
+class ToDoListItem implements Serializable {
+
+    private String title = null;
+    private String description = null;
+    private String status;
+    private String listduedate;
+
+    +public ToDoListItem()
+
+    +public ToDoListItem(String title, String description, String listduedate, String status)
+
+    +public String getStatus()
+
+    +public String getListduedate()
+
+    +public void setListduedate(String listduedate)
+
+    +public void setStatus(String status)
+
+    +public String getTitle()
+
+    +public void setTitle(String title)
+
+    +public String getDescription()
+
+    +public void setDescription(String description)
+}
+
+class Context {
+    private final static Context instance = new Context();
+    private  ToDoList  todoListInContext ;
+    private ObservableList<ToDoList> lists = FXCollections.observableArrayList();
+
+    public String getMode()
+
+    public void setMode(String mode)
+
+    private String Mode;
+    public static Context getInstance()
+
+    public ToDoList getTodoListInContext()
+
+    public void setTodoListInContext(ToDoList todoListInContext)
+
+    public ObservableList<ToDoList> getLists()
+
+    public void setLists(ObservableList<ToDoList> lists)
+}
+
+class ManageListController implements Initializable {
+    private ToDoLists ListsToDo ;
+    private FilteredList<ToDoList> filteredData;
+    private SortedList<ToDoList> sortedData;
+    private ObservableList<ToDoList> selectedList;
+    private int maxListCount = 3;
+    private String mode = "";
+    private Pane pntodolists;
+    private Pane pnlForm;
+    private Label lblMsg;
+    private TextField txtTitle;
+    private TableView<ToDoList> tableView;
+    private TableColumn<ToDoList, String> titleColumn;
+
+    public void initialize(URL location, ResourceBundle resources)
+
+    private void populateTable()
+
+    private void populateItem(String Mode)
+
+    private ToDoList ImportListInContext()
+
+    private ToDoLists ImportLists()
+
+    private void ExportLists()
+
+    public void btnAddListOnAction()
+
+    public void btnDeleteOnAction()
+
+    public void btnSubmitOnAction()
+
+    private void AddList()
+
+    private void UpdateList()
+
+    public void btnCancelOnAction()
+
+    public void btnEditOnAction()
+
+    public void btnExportListsOnAction()
+
+    public void btnManageItemsOnAction() throws IOException
+
+    public void btnImportListsOnAction()
+
+    public void btnImportListOnAction()
+}
+
+class TodoListController implements Initializable {
+    private Pane pntodolist;
+    private TextField txtTitle;
+    private TextArea txtDescription;
+    private DatePicker dpDueDate;
+    private ChoiceBox<String> drpStatus;
+    private ChoiceBox<String> drpStatusFilter;
+    private Label lblMsg;
+    private Label lblCurrentList;
+    private Pane pnlForm;
+    private TableView<ToDoListItem> tableView;
+    private TableColumn<ToDoListItem, String> titleColumn;
+    private TableColumn<ToDoListItem, String>  descriptionColumn;
+    private TableColumn<ToDoListItem, Date> listduedateColumn;
+    private TableColumn<ToDoListItem, String>  statusColumn;
+
+    private ToDoList  todoListInContext ;
+    public FilteredList<ToDoListItem> filteredData;
+    public SortedList<ToDoListItem> sortedData;
+    public ObservableList<ToDoListItem> selectedItem;
+    public ToDoListItem TodoItem;
+    public int maxListCount = 3;
+    public String mode = "";
+
+    public void initialize(URL location, ResourceBundle resources)
+    private void populateTable()
+    private void FilterList(Integer status)
+    private void ExportListInContext()
+    private ToDoList ImportListInContext()
+    private void populateItem(String Mode)
+    public void btnBackOnAction() throws IOException
+    public void btnExportListOnAction()
+    public void btnAddListOnAction()
+    public void btnEditOnAction()
+    public void btnDeleteOnAction()
+    public void btnCancelOnAction()
+    public void btnSubmitOnAction()
+    private void AddItem()
+    private void EditItem()
+}
+
+@enduml
